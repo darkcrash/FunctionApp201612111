@@ -250,3 +250,5 @@ ModelManifest.xml
 /WebApp20161211/Web.local.Debug.config
 /WebApp20161211/Properties/PublishProfiles/WebApp20161211 - Web Deploy.pubxml
 /FunctionApp20161211/Properties/PublishProfiles/FunctionApp20161211 - Web Deploy.pubxml
+/wwwroot/appsettings.local.json
+/wwwroot/Properties/PublishProfiles/FunctionApp20161211 - Web Deploy.pubxml
