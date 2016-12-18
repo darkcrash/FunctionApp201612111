@@ -1,0 +1,26 @@
+﻿{
+  "disabled": false,
+  "bindings": [
+    {
+      "path": "faceimages/{name}",
+      "type": "blobTrigger",
+      "name": "image",
+      "direction": "in",
+      "connection": "functionapp20161211_STORAGE"
+    },
+    {
+      "path": "images-sm/{name}",
+      "type": "blob",
+      "name": "imageSmall",
+      "direction": "out",
+      "connection": "functionapp20161211_STORAGE"
+    },
+    {
+      "path": "images-md/{name}",
+      "type": "blob",
+      "name": "imageMedium",
+      "direction": "out",
+      "connection": "functionapp20161211_STORAGE"
+    }
+  ]
+}

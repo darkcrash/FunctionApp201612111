@@ -1,0 +1,23 @@
+﻿{
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in"
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "outputBlob",
+      "path": "images/{rand-guid}",
+      "connection": "functionapp20161211_STORAGE",
+      "direction": "out"
+    }
+  ]
+}

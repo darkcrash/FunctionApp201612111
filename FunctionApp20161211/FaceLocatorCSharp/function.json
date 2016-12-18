@@ -1,0 +1,26 @@
+﻿{
+  "bindings": [
+    {
+      "type": "blobTrigger",
+      "name": "image",
+      "path": "images/{name}",
+      "connection": "functionapp20161211_STORAGE",
+      "direction": "in"
+    },
+    {
+      "type": "table",
+      "name": "outTable",
+      "tableName": "faceRectangle",
+      "connection": "functionapp20161211_STORAGE",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "outputBlob",
+      "path": "faceimages/{name}.jpg",
+      "connection": "functionapp20161211_STORAGE",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}

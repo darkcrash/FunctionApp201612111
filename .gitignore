@@ -240,3 +240,13 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+
+# exclude sample data
+/FunctionApp20161211/appsettings.local.json
+/FunctionApp20161211/Project_Readme.html
+/WebApp20161211/Web.local.config
+/WebApp20161211/Web.local.Release.config
+/WebApp20161211/Web.local.Debug.config
+/WebApp20161211/Properties/PublishProfiles/WebApp20161211 - Web Deploy.pubxml
+/FunctionApp20161211/Properties/PublishProfiles/FunctionApp20161211 - Web Deploy.pubxml
