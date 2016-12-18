@@ -47,7 +47,9 @@
     "webAppName": "[parameters('appName')]",
     "webappHostingPlanName": "[parameters('appName')]",
     "cognitiveServicesAccountName": "[parameters('appName')]",
-    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]"
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]",
+    "repoURL": "https://github.com/darkcrash/FunctionApp201612111",
+    "branch": "master"
   },
   "resources": [
     {
@@ -112,7 +114,7 @@
             "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
             "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
             "functionapp20161211_STORAGE": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
-            "Vision_API_Subscription_Key": "[listkeys(resourceId('Microsoft.CognitiveServices/accounts', variables('cognitiveServicesAccountName')), '2016-02-01-preview').key1]",
+            "Vision_API_Subscription_Key": "[listKeys(resourceId('Microsoft.CognitiveServices/accounts', variables('cognitiveServicesAccountName')), providers('Microsoft.CognitiveServices', 'accounts').apiVersions[0]).key1]",
             "FUNCTIONS_EXTENSION_VERSION": "latest"
           }
         }
@@ -164,6 +166,19 @@
           "properties": {
             "StorageKey": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
             "ApiHostName": "[concat('http://', variables('functionAppName'),'.azurewebsites.net/')]"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('webAppName'))]"
+          ],
+          "properties": {
+            "RepoUrl": "[variables('repoURL')]",
+            "branch": "[variables('branch')]",
+            "IsManualIntegration": true
           }
         }
       ]
