@@ -1,5 +1,5 @@
 {
-  "$schema": "http://schemas.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json#",
+  "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "appName": {
@@ -20,25 +20,6 @@
       "metadata": {
         "description": "Storage Account type"
       }
-    },
-    "webappHostingPlanNameSKU": {
-      "type": "string",
-      "allowedValues": [
-        "Free",
-        "Shared",
-        "Basic",
-        "Standard"
-      ],
-      "defaultValue": "Free"
-    },
-    "webappHostingPlanNameWorkerSize": {
-      "type": "string",
-      "allowedValues": [
-        "0",
-        "1",
-        "2"
-      ],
-      "defaultValue": "0"
     }
   },
   "variables": {
@@ -77,13 +58,18 @@
     },
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2015-04-01",
+      "apiVersion": "2015-08-01",
       "name": "[variables('functionHostingPlanName')]",
       "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
+      },
       "properties": {
-        "name": "[variables('functionHostingPlanName')]",
-        "computeMode": "Dynamic",
-        "sku": "Dynamic"
+        "name": "[variables('functionHostingPlanName')]"
       }
     },
     {
@@ -103,7 +89,20 @@
       ],
       "resources": [
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]"
+          ],
+          "properties": {
+            "RepoUrl": "[variables('repoURL')]",
+            "branch": "[variables('branchFunction')]",
+            "IsManualIntegration": true
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
           "name": "appsettings",
           "type": "config",
           "dependsOn": [
@@ -118,21 +117,6 @@
             "Vision_API_Subscription_Key": "[listKeys(resourceId('Microsoft.CognitiveServices/accounts', variables('cognitiveServicesAccountName')), providers('Microsoft.CognitiveServices', 'accounts').apiVersions[0]).key1]",
             "FUNCTIONS_EXTENSION_VERSION": "latest"
           }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "name": "web",
-          "type": "sourcecontrols",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
-            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-            "[resourceId('Microsoft.CognitiveServices/accounts', variables('cognitiveServicesAccountName'))]"
-          ],
-          "properties": {
-            "RepoUrl": "[variables('repoURL')]",
-            "branch": "[variables('branchFunction')]",
-            "IsManualIntegration": true
-          }
         }
       ]
     },
@@ -140,19 +124,21 @@
       "name": "[variables('webappHostingPlanName')]",
       "type": "Microsoft.Web/serverfarms",
       "location": "[resourceGroup().location]",
-      "apiVersion": "2014-06-01",
-      "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.CognitiveServices/accounts', variables('cognitiveServicesAccountName'))]"
-      ],
+      "apiVersion": "2015-08-01",
+      "sku": {
+        "name": "F1",
+        "tier": "Free",
+        "size": "F1",
+        "family": "F",
+        "capacity": 0
+      },
+      "dependsOn": [],
       "tags": {
         "displayName": "[parameters('appName')]"
       },
       "properties": {
         "name": "[variables('webappHostingPlanName')]",
-        "sku": "[parameters('webappHostingPlanNameSKU')]",
-        "workerSize": "[parameters('webappHostingPlanNameWorkerSize')]",
-        "numberOfWorkers": 1
+        "numberOfWorkers": 0
       }
     },
     {
@@ -172,19 +158,6 @@
       ],
       "resources": [
         {
-          "apiVersion": "2016-03-01",
-          "name": "appsettings",
-          "type": "config",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('webAppName'))]",
-            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-          ],
-          "properties": {
-            "StorageKey": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
-            "ApiHostName": "[concat('http://', variables('functionAppName'),'.azurewebsites.net/')]"
-          }
-        },
-        {
           "apiVersion": "2015-08-01",
           "name": "web",
           "type": "sourcecontrols",
@@ -195,6 +168,20 @@
             "RepoUrl": "[variables('repoURL')]",
             "branch": "[variables('branch')]",
             "IsManualIntegration": true
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "appsettings",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', variables('webAppName'))]",
+            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+          ],
+          "properties": {
+            "StorageKey": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
+            "ApiHostName": "[concat('http://', variables('functionAppName'),'.azurewebsites.net/')]",
+            "WEBSITE_NODE_DEFAULT_VERSION": "latest"
           }
         }
       ]
