@@ -15,3 +15,14 @@ Serverless meetup sapporo demo application
  * Output - Azure Storage Blob
  * Output - Azure Storage Table
 
+## Web Application
+
+* Controllers
+ * Home Controller
+  * Index Action - ~/
+  * AddImageFile Action - ~/AddImageFile
+  * ImageList Action - ~/ImageList
+
+## 注意
+現在、azure-functions-cli で実行するローカルホストは、最大要求サイズが65500バイトに制限されているため
+そのサイズを超えるイメージをアップロードすることができません。
