@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{33AD0EE8-D99B-4E14-8CD9-3F56ABEF97A2}") = "FunctionApp20161211", "wwwroot\FunctionApp20161211.funproj", "{CF7B9A2A-37EE-40F9-B3B0-CD330268B911}"
+Project("{33AD0EE8-D99B-4E14-8CD9-3F56ABEF97A2}") = "FunctionApp20161211", "FunctionApp20161211.funproj", "{CF7B9A2A-37EE-40F9-B3B0-CD330268B911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
