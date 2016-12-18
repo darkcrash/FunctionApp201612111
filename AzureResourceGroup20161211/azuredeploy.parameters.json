@@ -1,0 +1,9 @@
+{
+    "$schema": "http://schemas.management.azure.com/schemas/2015-01-01-preview/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "value": "sample20161218"
+        }
+    }
+}
