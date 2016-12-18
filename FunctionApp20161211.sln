@@ -7,6 +7,12 @@ Project("{33AD0EE8-D99B-4E14-8CD9-3F56ABEF97A2}") = "FunctionApp20161211", "Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp20161211", "WebApp20161211\WebApp20161211.csproj", "{F03D71D0-9802-43C3-B776-BE85E7371818}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCCE71CA-30A5-47B7-9182-31A3FA6D7ED9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
