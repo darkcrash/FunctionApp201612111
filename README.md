@@ -2,6 +2,14 @@
 
 Serverless meetup sapporo demo application
 
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fdarkcrash%2FFunctionApp201612111%2Fraw%2Fmaster%2FAzureResourceGroup20161211%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fgithub.com%2Fdarkcrash%2FFunctionApp201612111%2Fraw%2Fmaster%2FAzureResourceGroup20161211%2Fazuredeploy.json" target="_blank">
+    <img src="http://armviz.io/visualizebutton.png"/>
+</a>
+
+
 ## Azure Functions
 
 * AddImageFile
